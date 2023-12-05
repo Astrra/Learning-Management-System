@@ -37,7 +37,7 @@ export default function Books({ userType }) {
   const [quantity, setQuantity] = useState("");
   const [image, setImage] = useState("");
   // const [id, setId] = useState("");
-  console.log("in books.js");
+  console.log("in books.js", userType);
   //convert to base64 format
   function covertToBase64(e) {
     console.log(e);

@@ -20,9 +20,12 @@ import { VITE_BACKEND_URL } from './App';
 
 
 function App() {
-const [userData, setUserData] = useState("");
-const [student, setStudent] = useState(false);
+
   const isUserSignedIn = !! localStorage.getItem('token');
+
+  const [userData, setUserData] = useState("");
+  const [admin, setAdmin] = useState(false);
+
   useEffect(() => {
     fetch(`${VITE_BACKEND_URL}/api/userData`, {
       method: "POST",
@@ -32,33 +35,27 @@ const [student, setStudent] = useState(false);
         Accept: "application/json",
         "Access-Control-Allow-Origin": "*",
       },
-      body: JSON.stringify({
+        body: JSON.stringify({
         token: window.localStorage.getItem("token"),
       }),
     })
       .then((res) => res.json())
       .then((data) => {
-        console.log(data, "userData from navlink");
-  
-        if (data.data && data.data.userType) {
-          setUserData(data.data);
-  
-          // Uncomment the following if block if you want to check for the user type and set the student state
-          // if (data.data.userType === "student") {
-          //   setStudent(true);
-          // }
-        } else {
-          console.error("Invalid data structure received");
+        console.log(data, "userData");
+        if (data.data.userType == "admin") {
+          setAdmin(true);
         }
-  
-        if (data.data === "token expired") {
-          alert("Token expired, please log in again");
-          window.localStorage.clear();
-          window.location.href = "../";
-        }
+
+        setUserData(data.data);
+        
+
+        // if (data.data == "token expired") {
+        //   alert("Token expired login again");
+        //   window.localStorage.clear();
+        //   window.location.href = "../";
+        // }
       });
   }, []);
-  
 
   return (
          <Routes>
@@ -66,8 +63,8 @@ const [student, setStudent] = useState(false);
             <Route path="/aboutus" element={<Aboutus />} />
             <Route path="/register" element={<Register />} />
             {isUserSignedIn && <Route path="/dashboard/dashboard" element={<Dashboard />} />}
-            {isUserSignedIn && <Route path="/admin/books" element={<Books userType={userData.data.userType}  />} />}
-            {isUserSignedIn && <Route path="/admin/borrowedbooks" element={<Borrowedbooks userType={userData.data.userType}  />} />}
+            {isUserSignedIn && <Route path="/admin/books" element={<Books  userType={userData.userType}/>} />}
+            {isUserSignedIn && <Route path="/admin/borrowedbooks" element={<Borrowedbooks  userType={userData.userType}/>} />}
             {isUserSignedIn && <Route path="/admin/returnedbooks" element={<Returnedbooks />} />}
             {isUserSignedIn && <Route path="/admin/damagecharge" element={<Damagecharge />} />}
             {isUserSignedIn && <Route path="/admin/students" element={<Students />} />}

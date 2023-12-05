@@ -58,11 +58,11 @@ export default function UserHome({ userData }) {
               </NavLink>
               <NavLink
                 exact
-                to="/admin/borrowedbooks"
+                to="/student/borrowedbooklists"
                 activeClassName="activeClicked"
               >
                 <CDBSidebarMenuItem icon="book">
-                  <Link to="/admin/borrowedbooks">Borrowed Books</Link>
+                  <Link to="/student/borrowedbooklists">Borrowed Books</Link>
                 </CDBSidebarMenuItem>
               </NavLink>
               <NavLink

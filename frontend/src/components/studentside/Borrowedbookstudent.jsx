@@ -169,16 +169,6 @@ const getAllBooks = async() =>{
               </NavLink>
               <NavLink
                 exact
-                to="/admin/returnedbooks"
-                activeClassName="activeClicked"
-              >
-                <CDBSidebarMenuItem icon="book">
-                  <Link to="/admin/returnedbooks">Returned Books</Link>
-                </CDBSidebarMenuItem>
-              </NavLink>
-    
-              <NavLink
-                exact
                 to="/admin/students"
                 activeClassName="activeClicked"
               >
