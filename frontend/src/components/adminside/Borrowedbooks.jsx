@@ -168,7 +168,7 @@ export default function Borrowedbooks({ userType }) {
   //update borrowed book
   const updateBorrowedBook = async (e) => {
 
-    if (userType == "admin") {
+    if (userType != "admin") {
       e.preventDefault();
       alert("You are not Admin");
     } else {

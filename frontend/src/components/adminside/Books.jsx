@@ -213,7 +213,7 @@ export default function Books({ userType }) {
   //end single book
 
   const updateBook = async (e) => {
-    if (userType == "admin") {
+    if (userType != "admin") {
       e.preventDefault();
       alert("You are not Admin");
     } else {

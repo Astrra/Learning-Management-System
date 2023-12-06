@@ -10,7 +10,7 @@ function Notfound() {
                 <p className="lead">
                     The page you’re looking for doesn’t exist.<br />
 
-                    <b>Please contact: </b> <span className="" style={{ color: 'red' }}>Juniltoledo....</span>
+                    <b>Please contact: </b> <span className="" style={{ color: 'red' }}>AmanAnand....</span>
 
                   </p>
                 <Link to="/" className="btn btn-primary">Go Home</Link>

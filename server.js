@@ -151,20 +151,45 @@ app.post("/api/add-book", async (req, res) => {
 });
 
 
+// app.delete("/api/delete-book/:id", async (req, res) => {
+//   try {
+//      const {id} = req.params;
+//      const book = await booksModel.findByIdAndDelete(id);
+//      if(!book){
+//       res.status(404)
+//       throw new Error(`cannot find any book with ID ${id}`) 
+//      } 
+//      res.status(200).json(book);
+//     } catch (error) {
+//       res.status(500)
+//       throw new Error(error.message)
+//   }
+// })
 app.delete("/api/delete-book/:id", async (req, res) => {
   try {
-     const {id} = req.params;
-     const book = await booksModel.findByIdAndDelete(id);
-     if(!book){
-      res.status(404)
-      throw new Error(`cannot find any book with ID ${id}`) 
-     } 
-     res.status(200).json(book);
-    } catch (error) {
-      res.status(500)
-      throw new Error(error.message)
+    const { id } = req.params;
+    const book = await booksModel.findByIdAndDelete(id);
+
+    if (!book) {
+      res.status(404).json({ status: "error", message: `Cannot find any book with ID ${id}` });
+    } else {
+      // If the book is successfully deleted, update the available quantity
+      const updatedQuantity = book.quantity - 1;
+
+      // Check if the updated quantity is greater than or equal to 0
+      if (updatedQuantity >= 0) {
+        await booksModel.findByIdAndUpdate(id, { quantity: updatedQuantity });
+        res.status(200).json({ status: "ok", message: "Book deleted successfully" });
+      } else {
+        // If the updated quantity is negative, it means there was an issue with the quantity
+        res.status(400).json({ status: "error", message: "Invalid quantity value after deletion" });
+      }
+    }
+  } catch (error) {
+    res.status(500).json({ status: "error", message: error.message });
   }
-})
+});
+
 
 app.get("/api/get-singlebook/:id", async (req, res) => {
   try {

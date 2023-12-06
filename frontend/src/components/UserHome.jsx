@@ -100,7 +100,7 @@ export default function UserHome({ userData }) {
                 padding: "20px 5px",
               }}
             >
-              Created by: Junil toledo
+              Created by: Aman Anand
             </div>
           </CDBSidebarFooter>
         </CDBSidebar>

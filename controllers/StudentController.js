@@ -1,6 +1,6 @@
 const express = require("express");
 const router = express.Router();
-const Students = require("../models/StudentModel");
+const Students = require("../models/studentModel");
 const bcrypt = require("bcryptjs");
 const jwt = require("jsonwebtoken");
 // const asyncHandler = require("express-async-handler");

@@ -316,7 +316,7 @@ const handleSubmit = async(e) => {
                 padding: "20px 5px",
               }}
             >
-              Created by: Junil toledo
+              Created by: Aman Anand
             </div>
           </CDBSidebarFooter>
         </CDBSidebar>
@@ -367,7 +367,8 @@ const handleSubmit = async(e) => {
                                 <input type="hidden" name="authorname" onChange={(e)=>setAuthorname({authorname,name: e.target.value})}  value={i.authorname}/>
                                 <input type="hidden" name="publishername" onChange={(e)=>setPublishername({publishername,name: e.target.value})} value={i.publishername}/>
                                 <input type="hidden" name="publisheddate" onChange={(e)=>setPublisheddate({publisheddate,name: e.target.value})}  value={i.publisheddate}/>
-                                <input type="hidden" name="quantity" onChange={(e)=>setQuantity({quantity,name: e.target.value})} value={i.quantity}/>
+                                <b>How many books do you want to borrow?: </b><input type="number" name="quantityToBorrow"  onChange={(e) => setQuantity(e.target.value)}  style={{ width: '50px' }} min={1} max={i.quantity} /><br /><br />  
+                                 {/* <input type="hidden" name="quantity" onChange={(e)=>setQuantity({quantity,name: e.target.value})} value={i.quantity}/> */}
                                 <b>How many days you borrow ?: </b><input type="number" name="daysborrow" onChange={(e) => setDaysborrow(e.target.value)} style={{ width: '50px' }} min={1} max={9999}/><br /><br />
                                 <input type="hidden" name="studentName" onChange={(e)=>setStudentname({studentName,name: e.target.value})} value={userData.name}/>
                                 <input type="hidden" name="studentid" onChange={(e)=>setStudentId({studentid,name: e.target.value})} value={userData._id}/>
