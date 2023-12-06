@@ -9,7 +9,6 @@ import { toast } from 'react-toastify';
 import InputGroup from 'react-bootstrap/InputGroup';
 import Card from 'react-bootstrap/Card';
 import Container from 'react-bootstrap/Container';
-import qs from 'query-string'
 import {
   CDBBtn,
   CDBBox,
@@ -30,7 +29,6 @@ import {
 import { NavLink } from "react-router-dom";
 import axios from "axios";
 import { VITE_BACKEND_URL } from '../../App';
-import { useDebounce } from "../../../hooks/use-debounce";
 
 export default function Booklist() {
 const [userData, setUserData] = useState("");
@@ -136,7 +134,6 @@ const [daysborrow, setDaysborrow] = useState("");
 const [studentName, setStudentname] = useState("");
 const [studentid, setStudentId] = useState({});
 const [referenceCode, setReferencecode] = useState("");
-const [query,setQuery] = useState("");
 console.log("in booklist.js");
 
 //add borrow book
@@ -228,8 +225,7 @@ const handleSubmit = async(e) => {
         });
     
     };
-    const debouncedquery = useDebounce(query,500);
-    // debouncedquery === database ki book ka naam whi display
+
   //end add borrow book
   return (
     <div
@@ -342,8 +338,6 @@ const handleSubmit = async(e) => {
                 <Form.Control
                 placeholder="Search Books.."
                 aria-label="Recipient's username with two button addons"
-                type="text"
-                onChange={(e) => setQuery(e.target.value)}
                 />
                 <Button variant="outline-secondary"> <i className="fa fa-search"></i></Button>
             </InputGroup></>
