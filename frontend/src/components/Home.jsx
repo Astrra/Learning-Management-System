@@ -27,6 +27,7 @@ import  {  useState } from "react";
 function Home() {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
+  const [role,setRole] = useState("");
 
   const handleSubmit = async(e) => {
     e.preventDefault();
@@ -42,11 +43,16 @@ function Home() {
       body: JSON.stringify({
         email,
         password,
+        role,
       }),
     })
       .then((res) => res.json())
       .then((data) => {
         // console.log(data, "userRegister");
+        console.log(data);
+        if(data.error){
+          toast.error("Login failed")
+        }
         if (data.status == "ok") {
           toast.success(`Login successfully`)
           window.localStorage.setItem("token", data.data);
@@ -65,6 +71,7 @@ function Home() {
         }
       });
   }
+  
 
   return (
     <Container>
@@ -153,6 +160,19 @@ function Home() {
                     {errors.password && <small>{errors.password}</small>}
                   </Form.Text> */}
                 </Form.Group>
+                <Form.Select
+                  
+                    name="role"
+
+                    onChange={(e) => setRole(e.target.value)}
+                    aria-label="Default select example"
+                    className="my-2"
+                  >
+                    <option>&larr; Select Role &rarr;</option>
+                    <option value="admin">Admin</option>
+                    <option value="student">Student</option>
+                  </Form.Select>
+               
 
                 <Button variant="success" type="submit" className="w-100">
                   Sign In
