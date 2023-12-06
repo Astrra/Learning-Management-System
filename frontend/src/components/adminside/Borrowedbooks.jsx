@@ -164,6 +164,9 @@ export default function Borrowedbooks({ userType }) {
     status: "",
     id: "",
   });
+  const [quantityToBorrow, setQuantityToBorrow] = useState(0);
+  const [isbnNumber, setIsbnNumber] = useState("");
+
 
   const getSingleborrowedBook = async (id, status) => {
     // alert(status)
@@ -206,10 +209,12 @@ export default function Borrowedbooks({ userType }) {
       alert("You are not Admin");
     } else {
       e.preventDefault();
-     
       const id = e.target[0].value;
       const status = e.target[1].value;
+      const quantity = quantityToBorrow;
+      const ISBNNumber = isbnNumber;
 
+      console.log("from updatebook", quantityToBorrow);
       await fetch(`${VITE_BACKEND_URL}/api/updateborrowedbook/${id}`, {
         method: "PUT",
         crossDomain: true,
@@ -219,7 +224,7 @@ export default function Borrowedbooks({ userType }) {
           "Access-Control-Allow-Origin": "*",
         },
         body: JSON.stringify({
-          status,
+          status, quantity, ISBNNumber
         }),
       })
         .then((res) => res.json())
@@ -407,7 +412,7 @@ export default function Borrowedbooks({ userType }) {
                                     }
                                   >
                                     <span
-                                      onClick={() => setSmShow(true)}
+                                      onClick={() => {setSmShow(true); setQuantityToBorrow(i.quantity); setIsbnNumber(i.ISBNNumber)}}
                                       className="me-2"
                                     >
                                       Edit
@@ -467,9 +472,7 @@ export default function Borrowedbooks({ userType }) {
                     name="status"
                     value={status.status}
                     onChange={(e) =>{
-                      
                       setStatus({id:status.id, status: e.target.value })
-                      //console.log(e.target.value)
                     }
                     }
                     aria-label="Default select example"
