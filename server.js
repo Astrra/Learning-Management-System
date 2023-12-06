@@ -56,10 +56,11 @@ app.get("/api/students", async (req, res) => {
 });
 
 app.post("/api/login", async (req, res) => {
-  const { email, password } = req.body;
+  const { email, password ,role} = req.body;
 
   const user = await studentModel.findOne({ email });
-  if (!user) {
+  
+  if (!user || user.userType != role) {
     return res.json({ error: "User Not found" });
   }
   if (await bcrypt.compare(password, user.password)) {

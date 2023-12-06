@@ -9,6 +9,7 @@ import { toast } from "react-toastify";
 import { CDBBtn, CDBBox, CDBCard, CDBCardBody, CDBContainer } from "cdbreact";
 import { Link, useParams } from "react-router-dom";
 import Table from "react-bootstrap/Table";
+
 import {
   CDBSidebar,
   CDBSidebarContent,
@@ -20,6 +21,7 @@ import {
 import { NavLink } from "react-router-dom";
 import axios from "axios";
 import { VITE_BACKEND_URL } from "../../App";
+import Unauthorized from "../../Unauthorized";
 
 export default function Books({ userType }) {
   const [data, setData] = useState([]);
@@ -27,6 +29,10 @@ export default function Books({ userType }) {
     window.localStorage.clear();
     window.location.href = "../../";
   };
+  const [userData, setUserData] = useState("");
+  const [admin, setAdmin] = useState(false);
+
+  
 
   const [bookname, setBookname] = useState("");
   const [booknumbercode, setBooknumbercode] = useState("");
@@ -37,8 +43,40 @@ export default function Books({ userType }) {
   const [quantity, setQuantity] = useState("");
   const [image, setImage] = useState("");
   // const [id, setId] = useState("");
-  console.log("in books.js", userType);
+  // console.log("in books.js", userType);
   //convert to base64 format
+  useEffect(() => {
+    fetch(`${VITE_BACKEND_URL}/api/userData`, {
+      method: "POST",
+      crossDomain: true,
+      headers: {
+        "Content-Type": "application/json",
+        Accept: "application/json",
+        "Access-Control-Allow-Origin": "*",
+      },
+        body: JSON.stringify({
+        token: window.localStorage.getItem("token"),
+      }),
+    })
+      .then((res) => res.json())
+      .then((data) => {
+        console.log(data, "userData");
+        if (data.data.userType == "admin") {
+          setAdmin(true);
+        }
+
+        setUserData(data.data);
+        
+
+        // if (data.data == "token expired") {
+        //   alert("Token expired login again");
+        //   window.localStorage.clear();
+        //   window.location.href = "../";
+        // }
+      });
+  }, []);
+
+  // console.log("from books",userData.userType);
   function covertToBase64(e) {
     console.log(e);
     var reader = new FileReader();
@@ -263,7 +301,7 @@ export default function Books({ userType }) {
 
   //end update book
 
-  return (
+  return userData.userType === "admin" ? (
     <div
       style={{ display: "flex", height: "100vh", overflow: "scroll initial" }}
     >
@@ -781,5 +819,7 @@ export default function Books({ userType }) {
         {/*end modal edit */}
       </CDBBox>
     </div>
+  )  : (
+    <div><Unauthorized/></div>
   );
 }
