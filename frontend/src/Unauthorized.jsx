@@ -10,7 +10,7 @@ function Unauthorized() {
                 <p className="lead">
                     You need to have admin controls to access this page.<br />
 
-                    <b>Please contact: </b> <span className="" style={{ color: 'red' }}>Juniltoledo....</span>
+                    <b>Please contact: </b> <span className="" style={{ color: 'red' }}>AmanAnand....</span>
 
                   </p>
                 <Link to="/" className="btn btn-primary">Go Home</Link>
